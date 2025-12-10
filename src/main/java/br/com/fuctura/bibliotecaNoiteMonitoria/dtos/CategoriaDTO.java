@@ -1,27 +1,21 @@
-package br.com.fuctura.bibliotecaNoiteMonitoria.models;
+package br.com.fuctura.bibliotecaNoiteMonitoria.dtos;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import br.com.fuctura.bibliotecaNoiteMonitoria.models.Livro;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-public class Categoria {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CategoriaDTO {
     private Integer id;
     private String nome;
     private String descricao;
 
-    @OneToMany(mappedBy = "categoria")
     private List<Livro> livros = new ArrayList<>();
 
-    public Categoria() {
+    public CategoriaDTO() {
     }
 
-    public Categoria(Integer id, String nome, String descricao) {
+    public CategoriaDTO(Integer id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -29,6 +23,10 @@ public class Categoria {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -53,9 +51,5 @@ public class Categoria {
 
     public void setLivros(List<Livro> livros) {
         this.livros = livros;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 }

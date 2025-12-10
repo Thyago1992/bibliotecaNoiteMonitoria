@@ -1,29 +1,20 @@
-package br.com.fuctura.bibliotecaNoiteMonitoria.models;
+package br.com.fuctura.bibliotecaNoiteMonitoria.dtos;
 
 import br.com.fuctura.bibliotecaNoiteMonitoria.enums.Edicao;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import br.com.fuctura.bibliotecaNoiteMonitoria.models.Categoria;
 
-@Entity
-public class Livro {
-
-    @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+public class LivroDTO {
     private Integer id;
     private String nome;
     private String autor;
     private String texto;
-
-    @ManyToOne
-    @JoinColumn(name = "categoria_id")
-    @JsonIgnore
     private Categoria categoria;
     private Edicao edicao;
 
-    public Livro() {
+    public LivroDTO() {
     }
 
-    public Livro(Integer id, String nome, String autor, String texto, Edicao edicao, Categoria categoria) {
+    public LivroDTO(Integer id, String nome, String autor, String texto, Edicao edicao, Categoria categoria) {
         this.id = id;
         this.nome = nome;
         this.autor = autor;
@@ -34,6 +25,10 @@ public class Livro {
 
     public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -74,10 +69,5 @@ public class Livro {
 
     public void setEdicao(Edicao edicao) {
         this.edicao = edicao;
-    }
-
-    public Integer setId(Integer id) {
-        this.id = this.id;
-        return this.id;
     }
 }
