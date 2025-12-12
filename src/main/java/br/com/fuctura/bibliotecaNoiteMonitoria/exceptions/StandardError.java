@@ -15,6 +15,7 @@ public class StandardError {
         this.path = path;
     }
 
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }

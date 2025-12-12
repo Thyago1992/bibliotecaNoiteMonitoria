@@ -4,6 +4,7 @@ import br.com.fuctura.bibliotecaNoiteMonitoria.controllers.CategoriaController;
 import br.com.fuctura.bibliotecaNoiteMonitoria.dtos.CategoriaDTO;
 import br.com.fuctura.bibliotecaNoiteMonitoria.models.Categoria;
 import br.com.fuctura.bibliotecaNoiteMonitoria.services.CategoriaService;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -47,7 +48,7 @@ public class CategoriaControllerImpl implements CategoriaController {
 
     @Override
     @PostMapping
-    public ResponseEntity<CategoriaDTO> save(@RequestBody CategoriaDTO categoriaDTO) {
+    public ResponseEntity<CategoriaDTO> save(@Valid @RequestBody CategoriaDTO categoriaDTO) {
         Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
         Categoria novaCategoria = categoriaService.save(categoria);
         return ResponseEntity.ok().body(modelMapper.map(novaCategoria, CategoriaDTO.class));
@@ -55,7 +56,7 @@ public class CategoriaControllerImpl implements CategoriaController {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<CategoriaDTO> update(@PathVariable Integer id, @RequestBody CategoriaDTO categoriaDTO) {
+    public ResponseEntity<CategoriaDTO> update(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO categoriaDTO) {
         categoriaDTO.setId(id);
         Categoria categoria = modelMapper.map(categoriaDTO, Categoria.class);
         Categoria cat = categoriaService.update(categoria);

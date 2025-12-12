@@ -3,7 +3,9 @@ package br.com.fuctura.bibliotecaNoiteMonitoria.services;
 import br.com.fuctura.bibliotecaNoiteMonitoria.exceptions.ObjectNotFoundException;
 import br.com.fuctura.bibliotecaNoiteMonitoria.models.Categoria;
 import br.com.fuctura.bibliotecaNoiteMonitoria.repositories.CategoriaRepository;
+import br.com.fuctura.bibliotecaNoiteMonitoria.repositories.LivroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +16,8 @@ public class CategoriaService {
 
     @Autowired
     private CategoriaRepository categoriaRepository;
+    @Autowired
+    private LivroRepository livroRepository;
 
     public Categoria findById(Integer id) {
         Optional<Categoria> categoria = categoriaRepository.findById(id);
@@ -41,6 +45,16 @@ public class CategoriaService {
     }
 
     public void delete(Integer id) {
+        findById(id);
+        if (livroRepository.existsByCategoriaId(id)){
+            throw new IllegalStateException("Categoria possui livros associados e não pode ser deletada.");
+        }
+
+//        Categoria categoria = findById(id);
+//        if (categoria.getLivros() != null && !categoria.getLivros().isEmpty()) {
+//            throw new DataIntegrityViolationException("Categoria possui livros associados e não pode ser deletada.");
+//        }
+
         categoriaRepository.deleteById(id);
     }
 

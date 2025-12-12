@@ -57,7 +57,7 @@ public class LivroControllerImpl implements LivroController {
     public ResponseEntity<LivroDTO> update(@PathVariable Integer id, @RequestBody LivroDTO livroDTO) {
         livroDTO.setId(id);
         Livro livro = modelMapper.map(livroDTO, Livro.class);
-        Livro l = livroService.update(id, livro);
+        Livro l = livroService.update(livro);
         return ResponseEntity.ok().body(modelMapper.map(l, LivroDTO.class));
     }
 
